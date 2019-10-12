@@ -35,6 +35,28 @@ struct CharHelper<0, row, col, index> {
     enum {value = 0};
 };
 
+//Check if a player won down a certain row
+template<size_t state, size_t row, size_t player, size_t col = 0>
+struct CheckRow {
+    enum {value = CharHelper<state, row, col>::value == player
+            && CheckRow<state, row, player, col + 1>::value};
+};
+template<size_t state, size_t row, size_t player>
+struct CheckRow<state, row, player, BOARD_SIDE_LENGTH> {
+    enum {value = true};
+};
+
+//Check if a player won down a certain column
+template<size_t state, size_t col, size_t player, size_t row = 0>
+struct CheckColumn {
+    enum {value = CharHelper<state, row, col>::value == player
+            && CheckColumn<state, col, player, row + 1>::value};
+};
+template<size_t state, size_t col, size_t player>
+struct CheckColumn<state, col, player, BOARD_SIDE_LENGTH> {
+    enum {value = true};
+};
+
 Evaluation EvaluateBoard(const std::string &board_state) {
     return Evaluation::Xwins;
 }
