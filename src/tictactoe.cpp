@@ -2,7 +2,7 @@
 
 #include <array>
 
-#define abs(a) (a >= 0 ? a : -1 * a)
+#define abs(a) ((a) >= 0 ? (a) : -1 * (a))
 
 template<size_t a, size_t b>
 struct pow {
@@ -23,6 +23,17 @@ typedef std::array<Evaluation, TABLE_SIZE> LookupTable;
 constexpr size_t EMPTY_CHAR = 0;
 constexpr size_t X_CHAR = 1;
 constexpr size_t O_CHAR = 2;
+
+//Generate the digit at the row and column given the ternary state
+template<size_t state, size_t row, size_t col, size_t index = BOARD_AREA - 1>
+struct CharHelper {
+    enum {value = index == BOARD_SIDE_LENGTH * row + col ? state % 3
+            : CharHelper<state / 3, row, col, index - 1>::value};
+};
+template<size_t row, size_t col, size_t index>
+struct CharHelper<0, row, col, index> {
+    enum {value = 0};
+};
 
 Evaluation EvaluateBoard(const std::string &board_state) {
     return Evaluation::Xwins;
