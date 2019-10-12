@@ -35,6 +35,17 @@ struct CharHelper<0, row, col, index> {
     enum {value = 0};
 };
 
+//Count how many entries of each player
+template<size_t state, size_t player, size_t index = 0>
+struct PlayerCounter {
+    enum {value = (CharHelper<state, index / BOARD_SIDE_LENGTH, index % BOARD_SIDE_LENGTH>::value == player ? 1 : 0)
+                  + PlayerCounter<state, player, index + 1>::value};
+};
+template<size_t state, size_t player>
+struct PlayerCounter<state, player, BOARD_AREA> {
+    enum {value = 0};
+};
+
 //Check if a player won down a certain row
 template<size_t state, size_t row, size_t player, size_t col = 0>
 struct CheckRow {
@@ -80,6 +91,35 @@ template<size_t state, size_t player, bool isRightDiag>
 struct CheckDiagonal<state, player, isRightDiag, BOARD_SIDE_LENGTH, BOARD_SIDE_LENGTH> {
     enum {value = true};
 };
+
+//Check if a player has won in any condition
+template<size_t state, size_t player>
+struct CheckWin {
+    enum {value = CheckDiagonal<state, player, true>::value
+            || CheckDiagonal<state, player, false>::value
+            || RowColChecker<state, player>::value};
+};
+
+//Evaluate a state
+template<size_t state>
+struct BoardEvaluator {
+    static constexpr Evaluation value = (abs((PlayerCounter<state, X_CHAR>::value - PlayerCounter<state, O_CHAR>::value)) > 1
+                                         || (CheckWin<state, X_CHAR>::value && CheckWin<state, O_CHAR>::value)) ? Evaluation::UnreachableState
+                                                 : (CheckWin<state, X_CHAR>::value ? Evaluation::Xwins
+                                                 : (CheckWin<state, O_CHAR>::value ? Evaluation::Owins
+                                                 : Evaluation::NoWinner));
+};
+
+template<size_t index = 0, Evaluation ...D>
+struct TableGenerator : TableGenerator<index + 1, D..., BoardEvaluator<index>::value> {};
+
+template<Evaluation ...D>
+struct TableGenerator<TABLE_SIZE, D...> {
+    static constexpr LookupTable table = {D...};
+};
+
+constexpr LookupTable table = TableGenerator<>::table;
+
 
 Evaluation EvaluateBoard(const std::string &board_state) {
     return Evaluation::Xwins;
