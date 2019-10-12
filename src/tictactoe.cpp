@@ -15,7 +15,7 @@ struct TemplatePow<a, 0> {
     enum {value = 1};
 };
 
-constexpr size_t BOARD_SIDE_LENGTH = 2;
+constexpr size_t BOARD_SIDE_LENGTH = 3;
 constexpr size_t BOARD_AREA = BOARD_SIDE_LENGTH * BOARD_SIDE_LENGTH;
 constexpr size_t TABLE_SIZE = TemplatePow<3, BOARD_AREA>::value;
 

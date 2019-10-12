@@ -1,11 +1,21 @@
-#define CATCH_CONFIG_MAIN
-#include "catch.hpp"
+#include <iostream>
 
 #include "tictactoe.hpp"
 
-// See: https://github.com/catchorg/Catch2/blob/master/docs/tutorial.md
-// For documentation on how to write tests with Catch2
+std::string evaluationNames[] = {
+	"InvalidInput",
+	"NoWinner",
+	"Xwins",
+	"Owins",
+	"UnreachableState"
+};
 
-TEST_CASE("Incomplete boards have no winner") {
-    REQUIRE(EvaluateBoard("O...X.X..") == Evaluation::NoWinner);
+int main(int argc, char **argv) {
+
+    if(argc <= 1)
+        std::cout << "Please enter a tic tac toe state." << std::endl;
+    else
+        std::cout << evaluationNames[static_cast<int>(EvaluateBoard(argv[1]))] << std::endl;
+
+    return 0;
 }
