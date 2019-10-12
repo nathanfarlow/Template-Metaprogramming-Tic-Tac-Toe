@@ -1,7 +1,6 @@
 #include "tictactoe.hpp"
 
 #include <array>
-#include <algorithm>
 #include <cmath>
 
 #define abs(a) ((a) >= 0 ? (a) : -1 * (a))
@@ -22,7 +21,6 @@ constexpr size_t TABLE_SIZE = TemplatePow<3, BOARD_AREA>::value;
 
 typedef std::array<Evaluation, TABLE_SIZE> LookupTable;
 
-constexpr size_t EMPTY_CHAR = 0;
 constexpr size_t X_CHAR = 1;
 constexpr size_t O_CHAR = 2;
 
