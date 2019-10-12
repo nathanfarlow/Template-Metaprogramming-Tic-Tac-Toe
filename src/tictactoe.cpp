@@ -57,6 +57,30 @@ struct CheckColumn<state, col, player, BOARD_SIDE_LENGTH> {
     enum {value = true};
 };
 
+//Check if a player won any row or column
+template<size_t state, size_t player, size_t index = 0>
+struct RowColChecker {
+    enum {value = CheckRow<state, player, index>::value
+            && CheckColumn<state, player, index>::value
+            && RowColChecker<state, player, index + 1>::value};
+};
+
+template<size_t state, size_t player>
+struct RowColChecker<state, player, BOARD_SIDE_LENGTH> {
+    enum {value = true};
+};
+
+//Check if a player won a diagonal
+template<size_t state, size_t player, bool isRightDiag, size_t row = 0, size_t col = 0>
+struct CheckDiagonal {
+    enum {value = CharHelper<state, isRightDiag ? row : BOARD_SIDE_LENGTH - row - 1, col>::value == player
+                && CheckDiagonal<state, player, isRightDiag, row + 1, col + 1>::value};
+};
+template<size_t state, size_t player, bool isRightDiag>
+struct CheckDiagonal<state, player, isRightDiag, BOARD_SIDE_LENGTH, BOARD_SIDE_LENGTH> {
+    enum {value = true};
+};
+
 Evaluation EvaluateBoard(const std::string &board_state) {
     return Evaluation::Xwins;
 }
