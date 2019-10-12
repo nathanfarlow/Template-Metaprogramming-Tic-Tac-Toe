@@ -1,6 +1,6 @@
-#include <iostream>
-
 #include "tictactoe.hpp"
+
+#include <iostream>
 
 std::string evaluationNames[] = {
 	"InvalidInput",
@@ -13,7 +13,7 @@ std::string evaluationNames[] = {
 int main(int argc, char **argv) {
 
     if(argc <= 1)
-        std::cout << "Please enter a tic tac toe state." << std::endl;
+        std::cout << "Usage: ./tictactoe [board state]" << std::endl;
     else
         std::cout << evaluationNames[static_cast<int>(EvaluateBoard(argv[1]))] << std::endl;
 
