@@ -5,6 +5,7 @@
 
 #define abs(a) ((a) >= 0 ? (a) : -1 * (a))
 
+//Take a to the power of b
 template<size_t a, size_t b>
 struct TemplatePow {
     enum {value = a * TemplatePow<a, b - 1>::value};
