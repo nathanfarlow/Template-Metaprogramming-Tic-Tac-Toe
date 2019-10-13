@@ -105,9 +105,9 @@ template<size_t state>
 struct BoardEvaluator {
     static constexpr Evaluation value = abs((PlayerCounter<state, X_CHAR>::value - PlayerCounter<state, O_CHAR>::value)) > 1
                                          || (CheckWin<state, X_CHAR>::value && CheckWin<state, O_CHAR>::value) ? Evaluation::UnreachableState
-                                                 : (CheckWin<state, X_CHAR>::value ? Evaluation::Xwins
-                                                 : (CheckWin<state, O_CHAR>::value ? Evaluation::Owins
-                                                 : Evaluation::NoWinner));
+                                                 : CheckWin<state, X_CHAR>::value ? Evaluation::Xwins
+                                                 : CheckWin<state, O_CHAR>::value ? Evaluation::Owins
+                                                 : Evaluation::NoWinner;
 };
 
 //Generate the lookup table
