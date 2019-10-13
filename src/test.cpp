@@ -12,44 +12,44 @@ TEST_CASE("No winner is detected") {
 
 TEST_CASE("Unreachable states are detected") {
 	SECTION("Two winners") {
-		REQUIRE(EvaluateBoard("oooxxxoxx") == Evaluation::Unreachable);
+		REQUIRE(EvaluateBoard("oooxxxoxx") == Evaluation::UnreachableState);
 	}
 	SECTION("Two many of one player") {
-		REQUIRE(EvaluateBoard("ooooxx-a-") == Evaluation::Unreachable);
+		REQUIRE(EvaluateBoard("ooooxx-a-") == Evaluation::UnreachableState);
 	}
 }
 
 TEST_CASE("X win is detected") {
 	SECTION("Horizontal") {
-		REQUIRE(EvaluateBoard("xxx.b.oo.") == Evaluation::Xwin);
-		REQUIRE(EvaluateBoard("...xxxoo.") == Evaluation::Xwin);
-		REQUIRE(EvaluateBoard("oo....xxx") == Evaluation::Xwin);
+		REQUIRE(EvaluateBoard("xxx.b.oo.") == Evaluation::Xwins);
+		REQUIRE(EvaluateBoard("...xxxoo.") == Evaluation::Xwins);
+		REQUIRE(EvaluateBoard("oo....xxx") == Evaluation::Xwins);
 	}
 	SECTION("Vertical") {
-		REQUIRE(EvaluateBoard("xcdx.ox.o") == Evaluation::Xwin);
-		REQUIRE(EvaluateBoard(".x.oxo.x.") == Evaluation::Xwin);
-		REQUIRE(EvaluateBoard("..xolx.ox") == Evaluation::Xwin);
+		REQUIRE(EvaluateBoard("xcdx.ox.o") == Evaluation::Xwins);
+		REQUIRE(EvaluateBoard(".x.oxo.x.") == Evaluation::Xwins);
+		REQUIRE(EvaluateBoard("..xolx.ox") == Evaluation::Xwins);
 	}
 	SECTION("Diagonal") {
-		REQUIRE(EvaluateBoard("..Xox.X=o") == Evaluation::Xwin);
-		REQUIRE(EvaluateBoard("X..ox.o.x") == Evaluation::Xwin);
+		REQUIRE(EvaluateBoard("..Xox.X=o") == Evaluation::Xwins);
+		REQUIRE(EvaluateBoard("X..ox.o.x") == Evaluation::Xwins);
 	}
 }
 
 TEST_CASE("O win is detected") {
 	SECTION("Horizontal") {
-		REQUIRE(EvaluateBoard("oooxx....") == Evaluation::Owin);
-		REQUIRE(EvaluateBoard(".xxooozzy") == Evaluation::Owin);
-		REQUIRE(EvaluateBoard("ab.xx.ooo") == Evaluation::Owin);
+		REQUIRE(EvaluateBoard("oooxx....") == Evaluation::Owins);
+		REQUIRE(EvaluateBoard(".xxooozzy") == Evaluation::Owins);
+		REQUIRE(EvaluateBoard("ab.xx.ooo") == Evaluation::Owins);
 	}
 	SECTION("Vertical") {
-		REQUIRE(EvaluateBoard("o..o.xo.x") == Evaluation::Owin);
-		REQUIRE(EvaluateBoard(".o..o.xox") == Evaluation::Owin);
-		REQUIRE(EvaluateBoard("..o..oxxo") == Evaluation::Owin);	
+		REQUIRE(EvaluateBoard("o..o.xo.x") == Evaluation::Owins);
+		REQUIRE(EvaluateBoard(".o..o.xox") == Evaluation::Owins);
+		REQUIRE(EvaluateBoard("..o..oxxo") == Evaluation::Owins);	
 	}
 	SECTION("Diagonal") {
-		REQUIRE(EvaluateBoard("o..xo..xo") == Evaluation::Owin);
-		REQUIRE(EvaluateBoard("..o.o.oxx") == Evaluation::Owin);
+		REQUIRE(EvaluateBoard("o..xo..xo") == Evaluation::Owins);
+		REQUIRE(EvaluateBoard("..o.o.oxx") == Evaluation::Owins);
 	}
 }
 
