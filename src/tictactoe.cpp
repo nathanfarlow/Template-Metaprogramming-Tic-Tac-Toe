@@ -5,6 +5,8 @@
 
 #define abs(a) ((a) >= 0 ? (a) : -1 * (a))
 
+typedef std::array<Evaluation, TABLE_SIZE> LookupTable;
+
 //Take a to the power of b
 template<size_t a, size_t b>
 struct Pow {
@@ -23,8 +25,6 @@ struct Pow<a, 0> {
 constexpr size_t BOARD_SIDE_LENGTH = 3;
 constexpr size_t BOARD_AREA = BOARD_SIDE_LENGTH * BOARD_SIDE_LENGTH;
 constexpr size_t TABLE_SIZE = Pow<3, BOARD_AREA>::value;
-
-typedef std::array<Evaluation, TABLE_SIZE> LookupTable;
 
 constexpr size_t X_DIGIT = 1;
 constexpr size_t O_DIGIT = 2;
