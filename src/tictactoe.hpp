@@ -2,7 +2,7 @@
 
 #include <string>
 
-constexpr size_t BOARD_SIDE_LENGTH = 3;
+constexpr size_t kBoardSideLength = 3;
 
 enum class Evaluation {
     InvalidInput,
