@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-std::string evaluationNames[] = {
+std::string evaluation_names[] = {
 	"InvalidInput",
 	"NoWinner",
 	"Xwins",
@@ -15,7 +15,7 @@ int main(int argc, char **argv) {
     if(argc <= 1)
         std::cout << "Usage: ./tictactoe [board state]" << std::endl;
     else
-        std::cout << evaluationNames[static_cast<int>(EvaluateBoard(argv[1]))] << std::endl;
+        std::cout << evaluation_names[static_cast<int>(EvaluateBoard(argv[1]))] << std::endl;
 
     return 0;
 }
