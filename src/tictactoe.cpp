@@ -22,7 +22,6 @@ struct Pow<a, 0> {
     };
 };
 
-constexpr size_t BOARD_SIDE_LENGTH = 3;
 constexpr size_t BOARD_AREA = BOARD_SIDE_LENGTH * BOARD_SIDE_LENGTH;
 constexpr size_t TABLE_SIZE = Pow<3, BOARD_AREA>::value;
 

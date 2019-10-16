@@ -2,6 +2,8 @@
 
 #include <string>
 
+constexpr size_t BOARD_SIDE_LENGTH = 3;
+
 enum class Evaluation {
     InvalidInput,
     NoWinner,
@@ -11,6 +13,3 @@ enum class Evaluation {
 };
 
 Evaluation EvaluateBoard(const std::string &board_state);
-
-// Put other methods, enums, classes, etc. declarations here
-
