@@ -110,16 +110,16 @@ struct RowColChecker<state, player, kBoardSideLength> {
 };
 
 //Check if a player won a diagonal
-template<size_t state, size_t player, bool isRightDiag, size_t row = 0, size_t col = 0>
+template<size_t state, size_t player, bool is_right_diag, size_t row = 0, size_t col = 0>
 struct CheckDiagonal {
     enum {
-        value = CharHelper<state, isRightDiag ? row : kBoardSideLength - row - 1, col>::value == player
-                && CheckDiagonal<state, player, isRightDiag, row + 1, col + 1>::value
+        value = CharHelper<state, is_right_diag ? row : kBoardSideLength - row - 1, col>::value == player
+                && CheckDiagonal<state, player, is_right_diag, row + 1, col + 1>::value
     };
 };
 
-template<size_t state, size_t player, bool isRightDiag>
-struct CheckDiagonal<state, player, isRightDiag, kBoardSideLength, kBoardSideLength> {
+template<size_t state, size_t player, bool is_right_diag>
+struct CheckDiagonal<state, player, is_right_diag, kBoardSideLength, kBoardSideLength> {
     enum {
         value = true
     };
